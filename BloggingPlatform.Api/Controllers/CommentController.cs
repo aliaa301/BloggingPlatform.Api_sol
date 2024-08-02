@@ -37,9 +37,15 @@ namespace BloggingPlatform.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateComment([FromBody] CommentDto commentDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             await _commentService.CreateCommentAsync(commentDto);
             return CreatedAtAction(nameof(GetCommentById), new { id = commentDto.Id }, commentDto);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateComment(int id, [FromBody] CommentDto commentDto)

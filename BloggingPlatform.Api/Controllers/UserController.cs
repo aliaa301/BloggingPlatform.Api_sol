@@ -137,24 +137,25 @@ namespace BloggingPlatform.Api.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserDto userDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+       [HttpPost]
+public async Task<IActionResult> CreateUser([FromBody] UserDto userDto)
+{
+    if (!ModelState.IsValid)
+    {
+        return BadRequest(ModelState);
+    }
 
-            try
-            {
-                await _userService.CreateUserAsync(userDto);
-                return CreatedAtAction(nameof(GetUserById), new { id = userDto.Id }, userDto);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+    try
+    {
+        await _userService.CreateUserAsync(userDto);
+        return CreatedAtAction(nameof(GetUserById), new { id = userDto.Id }, userDto);
+    }
+    catch (ArgumentException ex)
+    {
+        return BadRequest(ex.Message);
+    }
+}
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDto userDto)

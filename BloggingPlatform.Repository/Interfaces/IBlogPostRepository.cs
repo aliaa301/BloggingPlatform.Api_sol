@@ -10,6 +10,8 @@ namespace BloggingPlatform.Repository.Interfaces
     public interface IBlogPostRepository : IBaseRepository<BlogPost>
     {
         Task<IEnumerable<BlogPost>> GetByAuthorAsync(int authorId);
-        Task<IEnumerable<BlogPost>> SearchBlogPostsAsync(string title, string author);  // Assuming this method exists
+       /// Task<IEnumerable<BlogPost>> SearchBlogPostsAsync(string title, string author);  // Assuming this method exists
+        Task<IEnumerable<BlogPost>> GetByTitleAsync(string title);
+        Task<IEnumerable<BlogPost>> GetByAuthorIdAsync(int authorId);
     }
 }

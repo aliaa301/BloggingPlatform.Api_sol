@@ -8,7 +8,9 @@ namespace BloggingPlatform.Service.Interfaces
     {
         Task<BlogPostDto> GetBlogPostByIdAsync(int id);
         Task<IEnumerable<BlogPostDto>> GetBlogPostsByAuthorAsync(int authorId);
-        Task<IEnumerable<BlogPostDto>> SearchBlogPostsAsync(string title, string author);
+        // Task<IEnumerable<BlogPostDto>> SearchBlogPostsAsync(string title, string author);
+        Task<IEnumerable<BlogPostDto>> GetByTitleAsync(string title);
+        Task<IEnumerable<BlogPostDto>> GetByAuthorIdAsync(int authorId);
         Task CreateBlogPostAsync(BlogPostDto blogPostDto);
         Task UpdateBlogPostAsync(BlogPostDto blogPostDto);
         Task DeleteBlogPostAsync(int id);

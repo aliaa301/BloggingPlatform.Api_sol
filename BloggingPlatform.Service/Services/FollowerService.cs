@@ -23,6 +23,10 @@ namespace BloggingPlatform.Service.Services
 
         public async Task FollowUserAsync(int userId, int followUserId)
         {
+            if (userId == followUserId)
+            {
+                throw new ArgumentException("User cannot follow themselves.");
+            }
             var user = await _userRepository.GetByIdAsync(userId);
             var followUser = await _userRepository.GetByIdAsync(followUserId);
 
@@ -31,7 +35,9 @@ namespace BloggingPlatform.Service.Services
 
             var existingFollower = await _followerRepository.GetByIdsAsync(userId, followUserId);
             if (existingFollower != null)
-                throw new InvalidOperationException("User is already following this user.");
+            {
+                throw new ArgumentException ("User is already following this user.");
+            }
 
             var newFollower = new Follower { UserId = userId, FollowerId = followUserId };
             await _followerRepository.AddAsync(newFollower);

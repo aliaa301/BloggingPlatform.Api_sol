@@ -31,12 +31,22 @@ namespace BloggingPlatform.Service.Services
             return _mapper.Map<IEnumerable<BlogPostDto>>(blogPosts);
         }
 
-        public async Task<IEnumerable<BlogPostDto>> SearchBlogPostsAsync(string title, string author)
+        //public async Task<IEnumerable<BlogPostDto>> SearchBlogPostsAsync(string title, string author)
+        //{
+        //    var blogPosts = await _blogPostRepository.SearchBlogPostsAsync(title, author);
+        //    return _mapper.Map<IEnumerable<BlogPostDto>>(blogPosts);
+        //}
+        public async Task<IEnumerable<BlogPostDto>> GetByTitleAsync(string title)
         {
-            var blogPosts = await _blogPostRepository.SearchBlogPostsAsync(title, author);
+            var blogPosts = await _blogPostRepository.GetByTitleAsync(title);
             return _mapper.Map<IEnumerable<BlogPostDto>>(blogPosts);
         }
 
+        public async Task<IEnumerable<BlogPostDto>> GetByAuthorIdAsync(int authorId)
+        {
+            var blogPosts = await _blogPostRepository.GetByAuthorIdAsync(authorId);
+            return _mapper.Map<IEnumerable<BlogPostDto>>(blogPosts);
+        }
         public async Task CreateBlogPostAsync(BlogPostDto blogPostDto)
         {
             var blogPost = _mapper.Map<BlogPost>(blogPostDto);

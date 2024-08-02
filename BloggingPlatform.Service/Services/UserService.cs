@@ -33,6 +33,11 @@ namespace BloggingPlatform.Service.Services
 
         public async Task CreateUserAsync(UserDto userDto)
         {
+            var existingUser = await _userRepository.GetByEmailAsync(userDto.Email);
+            if (existingUser != null)
+            {
+                throw new ArgumentException("Email already in use.");
+            }
             var user = _mapper.Map<User>(userDto);
             // Ensure Password is set
             if (string.IsNullOrEmpty(user.Password))

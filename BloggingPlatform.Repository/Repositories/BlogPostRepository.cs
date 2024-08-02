@@ -19,10 +19,23 @@ namespace BloggingPlatform.Repository.Repositories
             return await _context.BlogPosts.Where(bp => bp.AuthorId == authorId).ToListAsync();
         }
 
-        public async Task<IEnumerable<BlogPost>> SearchBlogPostsAsync(string title, string author)
+        //public async Task<IEnumerable<BlogPost>> SearchBlogPostsAsync(string title, string author)
+        //{
+        //    return await _context.BlogPosts
+        //        .Where(bp => bp.Title.Contains(title) || bp.Author.Username.Contains(author))
+        //        .ToListAsync();
+        //}
+        public async Task<IEnumerable<BlogPost>> GetByTitleAsync(string title)
         {
             return await _context.BlogPosts
-                .Where(bp => bp.Title.Contains(title) || bp.Author.Username.Contains(author))
+                .Where(bp => bp.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<BlogPost>> GetByAuthorIdAsync(int authorId)
+        {
+            return await _context.BlogPosts
+                .Where(bp => bp.AuthorId == authorId)
                 .ToListAsync();
         }
     }
